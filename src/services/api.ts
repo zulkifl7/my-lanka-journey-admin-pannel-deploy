@@ -2,17 +2,17 @@ import axios from 'axios';
 import { Country, Location, ActivityCategory } from '../types';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: 'https://mylankajourney.zulkifl.tech/api',
   withCredentials: true, // Enable sending cookies with requests
 });
 
 api.interceptors.request.use(config => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-    }
-    config.headers.Accept = 'application/json';
-    return config;
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${ token }`;
+  }
+  config.headers.Accept = 'application/json';
+  return config;
 });
 
 // Country API functions
@@ -82,7 +82,7 @@ export const getActivities = async () => {
 };
 
 export const getActivity = async (id: number) => {
-  const response = await api.get(`/admin/activities/${id}`);
+  const response = await api.get(`/admin/activities/${ id }`);
   return response.data;
 };
 
@@ -97,7 +97,7 @@ export const addActivity = async (activity: FormData | Omit<Activity, 'id' | 'cr
 };
 
 export const updateActivity = async (id: number, activity: Partial<Activity>): Promise<Activity> => {
-  const response = await api.put(`/admin/activities/${id}`, activity);
+  const response = await api.put(`/admin/activities/${ id }`, activity);
   return response.data;
 };
 
@@ -108,7 +108,7 @@ export const getGalleryCities = async () => {
 };
 
 export const getGalleryCity = async (id: number) => {
-  const response = await api.get(`/admin/gallery-cities/${id}`);
+  const response = await api.get(`/admin/gallery-cities/${ id }`);
   return response.data;
 };
 
@@ -118,14 +118,14 @@ export const addGalleryCity = async (galleryCity: Omit<GalleryCity, 'id' | 'crea
 };
 
 export const updateGalleryCity = async (id: number, galleryCity: Partial<GalleryCity>): Promise<GalleryCity> => {
-  const response = await api.put(`/admin/gallery-cities/${id}`, galleryCity);
+  const response = await api.put(`/admin/gallery-cities/${ id }`, galleryCity);
   return response.data;
 };
 
 export const deleteGalleryCity = async (id: number): Promise<void> => {
-  await api.delete(`/admin/gallery-cities/${id}`);
+  await api.delete(`/admin/gallery-cities/${ id }`);
 };
 
 export const deleteActivity = async (id: number): Promise<void> => {
-  await api.delete(`/admin/activities/${id}`);
+  await api.delete(`/admin/activities/${ id }`);
 };
